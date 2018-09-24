@@ -1,0 +1,27 @@
+https://zhuanlan.zhihu.com/p/44939567
+
+Django view（视图）：一类具有相同功能和模板的网页的集合。比如在一个博客应用中，可能会创建以下几个视图：
+	（1）博客首页：展示最近的几项内容；
+	（2）内容详情页：详细展示某项内容；
+	（3）评论处理器：响应为一项内容添加评论的操作。
+
+1. article/urls.py		==> app内部路由(app内所有url -> view的映射) 
+from django.urls import path
+from . import views
+
+app_name = 'article'
+
+urlpatterns = [
+    path('hello_world/', views.hello_world, name='hello_world'),
+    path('hello_world2/', views.hello_world2, name='hello_world2'),
+]
+
+2. article/views.py		==> app内所有的views定义（这是一个视图集合）
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def hello_world(request):
+	return HttpResponse("Hello World!")
+
+def hello_world2(request):
+	return HttpResponse("Hello World 2!")

@@ -1,0 +1,20 @@
+后台增删改，测试ArticlePost模型
+
+1. python manage.py createsuperuser		==> 创建管理员账号
+Username (leave blank to use 'sam'): 
+Email address: chuanwang66@163.com
+Password: 
+Password (again): 
+This password is too short. It must contain at least 8 characters.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+
+2. article/admin.py 				==> 将ArticlePost模型注册到后台
+from django.contrib import admin
+
+# Register your models here.
+from .models import ArticlePost
+
+admin.site.register(ArticlePost)
+
+3. http://127.0.0.1:8000/admin			==> 登录后台，添加ArticlePost测试文档

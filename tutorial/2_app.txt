@@ -1,0 +1,48 @@
+https://zhuanlan.zhihu.com/p/44857729
+
+1. 创建和注册 app (article)
+	Django中一个app代表一个功能模块。
+
+	# python manager.py startapp article
+	# tree
+.
+├── article
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── migrations
+│   │   └── __init__.py
+│   ├── models.py
+│   ├── tests.py
+│   └── views.py
+├── db.sqlite3
+├── manage.py
+└── my_blog
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+
+	# vim my_blog/settings.py	==> 注册app: 
+		INSTALLED_APPS中追加app "article"
+
+	# vim my_blog/urls.py		==> 配置app路由
+		from django.urls import include
+		
+		# url->app映射
+		urlpatterns = [
+			...,
+			# 将路径article/的请求都分发给article这个app处理
+			path('article/', include('article.urls', namespace='article')),
+		]
+
+	# touch article/urls.py		==> app自己也有一个路由
+
+from django.urls import path
+
+# 正在部署的应用的名称
+app_name = 'article'
+
+urlpatterns = [
+    # 目前还没有urls
+]

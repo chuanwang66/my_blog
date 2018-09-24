@@ -1,0 +1,43 @@
+https://zhuanlan.zhihu.com/p/44939841
+
+1. 设置templates目录
+	vim my_blog/settings.py 		==> 指定模板目录
+
+TEMPLATES = [
+    {
+	...,
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+	...
+    },
+]
+
+2. 定义article_list视图
+
+	vim article/urls.py		==> 追加app内路由
+urlpatterns = [
+    	...,
+	path('article_list/', views.article_list, name='article_list'),
+]
+
+
+	vim article/views.py		==> 定义article_list这个view的处理函数
+from .models import ArticlePost
+def article_list(request):
+	articles = ArticlePost.objects.all()	# 所有博客文章
+	context = { 'articles': articles }	# context: 需要传递给templates的对象
+	return render(request, 'article/list.html', context)	#模板: templates/article/list.html
+
+3. 编写template
+
+	mkdir templates
+
+	mkdir templates/article
+
+	vim templates/article/list.html	写入
+
+{% for article in articles %}
+    <p>{{ article.title }}</p>
+{% endfor %}
+
+4. 测试:
+http://127.0.0.1:8000/article/article_list/
